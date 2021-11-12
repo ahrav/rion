@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
-import * as Location from "expo-location";
-import { useIsFocused } from "@react-navigation/native";
+import { useState, useEffect } from 'react'
+import * as Location from 'expo-location'
+import { useIsFocused } from '@react-navigation/native'
 
 export default (callback: any) => {
-  const [err, setErr] = useState(null);
+  const [err, setErr] = useState(null)
 
   useEffect(() => {
     const startWatching = async () => {
       try {
-        const { granted } = await Location.requestForegroundPermissionsAsync();
+        const { granted } = await Location.requestForegroundPermissionsAsync()
         if (!granted) {
-          throw new Error("Location permission not granted");
+          throw new Error('Location permission not granted')
         }
         await Location.watchPositionAsync(
           {
@@ -19,14 +19,14 @@ export default (callback: any) => {
             distanceInterval: 1,
           },
           callback
-        );
+        )
       } catch (e) {
-        setErr(e);
+        setErr(e)
       }
-    };
+    }
 
-    startWatching();
-  }, [callback]);
+    startWatching()
+  }, [callback])
 
-  return [err];
-};
+  return [err]
+}

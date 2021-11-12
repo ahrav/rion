@@ -19,15 +19,20 @@ const Map = () => {
   return (
     <MapView
       style={styles.map}
-      initialRegion={{
-        ...initialLocation,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
+      // initialRegion={{
+      //   ...initialLocation,
+      //   latitudeDelta: 0.01,
+      //   longitudeDelta: 0.01,
+      // }}
+      region={{
+        ...currentLocation.coords,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
       }}
     >
       <Circle
         center={currentLocation.coords}
-        radius={30}
+        radius={10}
         strokeColor="rgba(158, 158, 255, 1.0)"
         fillColor="rgba(158, 158, 255, 0.3)"
       />
@@ -38,7 +43,8 @@ const Map = () => {
 
 const styles = StyleSheet.create({
   map: {
-    height: 350,
+    height: 400,
+    flex: 3,
   },
 });
 

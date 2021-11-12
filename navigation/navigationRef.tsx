@@ -1,10 +1,10 @@
-import { NavigationActions } from "react-navigation";
+import { NavigationActions } from 'react-navigation'
 
-let navigator: any;
+let navigator: any
 
 export const setNavigator = (nav: any) => {
-  navigator = nav;
-};
+  navigator = nav
+}
 
 export const navigate = (routeName: string, params: any) => {
   navigator.dispatch(
@@ -12,5 +12,5 @@ export const navigate = (routeName: string, params: any) => {
       routeName,
       params,
     })
-  );
-};
+  )
+}
