@@ -1,37 +1,43 @@
-import React, { useContext, useCallback } from 'react'
-import { StyleSheet } from 'react-native'
+import React, { useContext, useCallback } from "react";
+import { StyleSheet, Dimensions, Image } from "react-native";
 
-import EditScreenInfo from '../components/EditScreenInfo'
-import { Text, View, TextInput } from '../components/Themed'
-import { RootTabScreenProps } from '../types'
-import { Context as LocationContext } from '../context/LocationContext'
-import { metersToMPH } from '../utils/conversion'
-import useLocation from '../hooks/useLocation'
+import logo from "../assets/images/rion.png";
+import EditScreenInfo from "../components/EditScreenInfo";
+import { Text, View, TextInput } from "../components/Themed";
+import { RootTabScreenProps } from "../types";
+import { Context as LocationContext } from "../context/LocationContext";
+import { metersToMPH } from "../utils/conversion";
+import useLocation from "../hooks/useLocation";
 
-const RealtimeScreen = ({ navigation }: RootTabScreenProps<'Realtime'>) => {
+const RealtimeScreen = ({ navigation }: RootTabScreenProps<"Realtime">) => {
   const {
     state: { currentLocation },
     addLocation,
-  } = useContext(LocationContext)
+  } = useContext(LocationContext);
   const speed =
     currentLocation && currentLocation.coords.speed > 0
       ? Math.round(metersToMPH(currentLocation.coords.speed)).toString()
-      : '0'
+      : "0";
 
   const callback = useCallback((location) => {
-    addLocation(location)
-  }, [])
-  const [err] = useLocation(callback)
+    addLocation(location);
+  }, []);
+  const [err] = useLocation(callback);
 
   return (
     <View style={styles.container}>
+      <View style={styles.logo}>
+        <Image
+          source={logo}
+          style={{ justifyContent: "center", height: 100, width: 200 }}
+        />
+      </View>
       <View style={styles.input}>
         <TextInput
           style={{
-            justifyContent: 'flex-end',
+            justifyContent: "flex-end",
             fontSize: 100,
-            alignContent: 'flex-end',
-            backgroundColor: 'blue',
+            alignContent: "flex-end",
             height: 85,
           }}
           value={speed}
@@ -41,13 +47,12 @@ const RealtimeScreen = ({ navigation }: RootTabScreenProps<'Realtime'>) => {
           style={{
             fontSize: 30,
             height: 35,
-            backgroundColor: 'orange',
           }}
         >
           mph
         </Text>
       </View>
-      <View style={styles.input2}>
+      {/* <View style={styles.input2}>
         <TextInput
           style={{
             justifyContent: 'center',
@@ -90,38 +95,50 @@ const RealtimeScreen = ({ navigation }: RootTabScreenProps<'Realtime'>) => {
         >
           °F
         </Text>
-      </View>
+      </View> */}
       {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="/screens/RealtimeScreen.tsx" /> */}
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "column",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  logo: {
+    height: Dimensions.get("window").height / 14,
+    width: Dimensions.get("window").width,
+    alignItems: "center",
   },
   input: {
-    flex: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'yellow',
+    height: Dimensions.get("window").height / 2.5,
+    alignItems: "center",
+    borderRadius: 5,
+    justifyContent: "center",
+    width: Dimensions.get("window").width,
+    // flex: 4,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // backgroundColor: 'yellow',
   },
-  input2: {
-    flex: 2,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-around',
-    backgroundColor: 'green',
-  },
-  input3: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-around',
-    backgroundColor: 'red',
-  },
-})
+  // input2: {
+  //   flex: 2,
+  //   flexDirection: "row",
+  //   alignItems: "flex-start",
+  //   justifyContent: "space-around",
+  //   backgroundColor: "green",
+  // },
+  // input3: {
+  //   flex: 1,
+  //   flexDirection: "row",
+  //   alignItems: "flex-start",
+  //   justifyContent: "space-around",
+  //   backgroundColor: "red",
+  // },
+});
 
-export default RealtimeScreen
+export default RealtimeScreen;
